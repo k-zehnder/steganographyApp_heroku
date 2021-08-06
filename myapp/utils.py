@@ -8,8 +8,10 @@ import types
 from PIL import Image
 from flask import current_app
 
-UPLOAD_PATH = current_app.config['UPLOAD_PATH']
-DOWNLOAD_PATH = current_app.config['DOWNLOAD_PATH']
+project_root = os.path.dirname(os.path.dirname(__file__))
+UPLOADS = os.path.join(project_root, "myapp", current_app.config['UPLOAD_PATH'])
+DOWNLOADS = os.path.join(project_root, "myapp", current_app.config['DOWNLOAD_PATH'])
+#print(f"TEST: {(UPLOADS, DOWNLOADS)}")
 
 def validate_image(stream):
     header = stream.read(512)
@@ -97,16 +99,16 @@ def my_decode_text(filename):
     else:
         encoded_filepath = 'encoded_' + filename
 
-    image_with_message = cv2.imread(os.path.join(DOWNLOAD_PATH, encoded_filepath))
+    image_with_message = cv2.imread(os.path.join(DOWNLOADS, encoded_filepath))
     print(f"Image with message filename = {encoded_filepath}")
 
     text = showData(image_with_message)
     return text
 
 def encode_text(filename, message):
-    originalImage = cv2.imread(os.path.join(UPLOAD_PATH, filename)).copy()
+    originalImage = cv2.imread(os.path.join(UPLOADS, filename)).copy()
     processed_img = hideData(originalImage, message)
 
     # write encoded image to disk
     encoded_filepath = 'encoded_' + filename
-    cv2.imwrite(os.path.join(DOWNLOAD_PATH, encoded_filepath), processed_img)
+    cv2.imwrite(os.path.join(DOWNLOADS, encoded_filepath), processed_img)
