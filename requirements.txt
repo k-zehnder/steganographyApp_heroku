@@ -16,3 +16,4 @@ opencv-python==4.5.3.56
 peewee==3.14.4
 Werkzeug==2.0.1
 opencv-python-headless==4.4.0.46
+Flask-WTF==0.15.1
