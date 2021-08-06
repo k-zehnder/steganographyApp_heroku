@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <a href="{{ url_for('main.upload_file') }}">Back to Upload Page</a>
+    <h3>At _show_img.html</h3>
+    <p>filename: {{ filename }}</p>
+    <p>file_url: {{ file_url }}</p>
+    {% if file_url %}
+    <br>
+    <img src="{{ file_url }}">
+    {% endif %}
+  </body>
+</html>

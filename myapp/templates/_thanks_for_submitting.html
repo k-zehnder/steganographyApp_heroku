@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block body %}
+
+<div class="">
+  <div class="col-lg-12">
+    <div class="col-lg-12 text-center">
+    <h2 class="">Thank You for Your Submission!</h2>
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <div class="card mt-3">
+            <div class="card-body">
+                <p> filename: {{ ds }} </p>
+                <img src="{{ url_for('main.upload', filename=ds.filename) }}" style="width: 64px">
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </h2>
+</div>
+</div>
+</div>
+<br>
+<div class="row pad">
+  <div class="col-lg-12 text-center">
+    <a href="{{ url_for('main.index') }}">Back to Index</a>
+  </div>
+</div>
+
+{% endblock %}
