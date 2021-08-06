@@ -23,7 +23,6 @@ DOWNLOADS = os.path.join(project_root, current_app.config['DOWNLOAD_PATH'])
 print(f"TEST: {(UPLOADS, DOWNLOADS)}")
 
 load_dotenv()
-
 db = connect(os.environ.get('DATABASE_URL'))
 db.connect()
 db.drop_tables([ImageFile])
