@@ -33,7 +33,6 @@ db.create_tables([ImageFile])
 def index():
     ds = ImageFile.select() # ds = ImageFile.query.all()
     files = os.listdir(os.path.join(project_root, current_app.config['UPLOAD_PATH']))
-    
     # form presented to user here
     form = UploadForm()
     if request.method == 'POST' and form.validate_on_submit():
@@ -42,11 +41,8 @@ def index():
         if filename != '': # MUST BE PNG!!!!!
 
             # save uploaded photo to uploads folder
-            #uploaded_file.save(os.path.join(project_root, current_app.config['UPLOAD_PATH'], filename))
-            uploaded_file.save(os.path.join('/home/batman/Desktop/steganographyApp_heroku/myapp/uploads', filename))
-            #uploaded_file.save(UPLOADS, filename)
+            uploaded_file.save(os.path.join(UPLOADS, filename))
             
-
             # encode message goes here
             encode_text(filename=filename, message=form.text.data)
 
@@ -62,16 +58,15 @@ def index():
 
 @main.route('/all_files', methods=['GET','POST'])
 def all_files():
-    #ds = ImageFile.query.all()
     ds = ImageFile.select()
-    files = os.listdir(os.path.join(project_root, current_app.config['UPLOAD_PATH']))
+    files = [f for f in os.listdir(UPLOADS)]
+    print(files)
+
     return render_template('_show_entries.html', files=files, ds=ds)
 
 @main.route('/thanks', methods=['GET', 'POST'])
 def thanks():
-    #ds_all = ImageFile.query.all()
-    ds_all = ImageFile.select()
-    ds = ds_all[-1]
+    ds = ImageFile.select()[-1]
     return render_template('_thanks_for_submitting.html', ds=ds)
 
 @main.route('/decode', methods=['GET', 'POST'])
@@ -80,7 +75,6 @@ def decode():
         uploaded_file = request.files['file']
         filename = secure_filename(uploaded_file.filename)
         if filename != '':
-            #tempFile = ImageFile.query.all()[-1]
             tempFile = ImageFile.select()[-1]
             message_to_show = my_decode_text(filename=filename)
             print(f"Message = {message_to_show}")
@@ -89,6 +83,4 @@ def decode():
 
 @main.route('/uploads/<filename>')
 def upload(filename):
-    # return send_from_directory(current_app.config['UPLOAD_PATH'], filename)
-    #return send_from_directory(os.path.join(project_root, current_app.config['UPLOAD_PATH']), filename)
     return send_from_directory(UPLOADS, filename)
