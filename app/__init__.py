@@ -17,7 +17,7 @@ def create_app():
         from .main import main_views
 
         # import our utils.py file
-        from .utils import validate_image, my_decode_text, encode_text
+        from .utils import validate_image, my_decode_text, encode_text, my_decode_text_two
 
         # Register Blueprints
         app.register_blueprint(main_views.main)
