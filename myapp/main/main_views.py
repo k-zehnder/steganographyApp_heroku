@@ -23,10 +23,13 @@ DOWNLOADS = os.path.join(project_root, current_app.config['DOWNLOAD_PATH'])
 print(f"TEST: {(UPLOADS, DOWNLOADS)}")
 
 load_dotenv()
-db = connect(os.environ.get('DATABASE_URL'))
+uri = os.getenv("DATABASE_URL")  # or other relevant config var
+if uri.startswith("postgres://"):
+    uri = uri.replace("postgres://", "postgresql://", 1)
+db = connect(uri)
 db.connect()
 #db.drop_tables([ImageFile])
-db.create_tables([ImageFile])
+#db.create_tables([ImageFile])
 
 @main.route('/', methods=['GET','POST'])
 def index():
