@@ -7,8 +7,8 @@
   <div class="col-lg-12 text-center">
 		<h2 class="">Your message has been sucessfully decoded! </h2>
     <p> Message: {{ message_to_show }} </p>
-    <p> filename: {{ ds }} </p>
-    <img src="{{ url_for('main.get_encoded', filename=filename) }}" style="width: 64px">
+    <p> filename: {{ query }} </p>
+    <img src="{{ url_for('main.get_decoded', filename=query) }}" style="width: 64px">
     <hr>
     <a href="{{ url_for('main.index') }}">Back to Index</a>
 	</div>

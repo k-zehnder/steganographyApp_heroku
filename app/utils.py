@@ -11,8 +11,8 @@ from flask import current_app
 project_root = os.path.dirname(os.path.dirname(__file__))
 UPLOADS = os.path.join(project_root, "app", current_app.config['UPLOAD_PATH'])
 DOWNLOADS = os.path.join(project_root, "app", current_app.config['DOWNLOAD_PATH'])
-ENCODED = os.path.join(project_root, "app", current_app.config['ENCODED_PATH'])
-#print(f"TEST: {(UPLOADS, DOWNLOADS)}")
+DECODED = os.path.join(project_root, "app", current_app.config['DECODED_PATH'])
+#print(f"TEST: {(UPLOADS, DOWNLOADS, DECODED)}")
 
 def validate_image(stream):
     header = stream.read(512)
@@ -114,7 +114,7 @@ def encode_text(filename, message):
     cv2.imwrite(os.path.join(DOWNLOADS, encoded_filepath), processed_img)
 
 def my_decode_text_two(filename):
-    image_with_message = cv2.imread(os.path.join(ENCODED, filename))
+    image_with_message = cv2.imread(os.path.join(DECODED, filename))
     print(f"Image with message filename = {filename}")
 
     text = showData(image_with_message)

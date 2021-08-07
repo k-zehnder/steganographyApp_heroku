@@ -25,8 +25,8 @@ main = Blueprint('main', __name__)
 project_root = os.path.dirname(os.path.dirname(__file__))
 UPLOADS = os.path.join(project_root, current_app.config['UPLOAD_PATH'])
 DOWNLOADS = os.path.join(project_root, current_app.config['DOWNLOAD_PATH'])
-ENCODED = os.path.join(project_root, current_app.config['ENCODED_PATH'])
-print(f"TEST: {(UPLOADS, DOWNLOADS)}")
+DECODED = os.path.join(project_root, current_app.config['DECODED_PATH'])
+print(f"TEST: {(UPLOADS, DOWNLOADS, DECODED)}")
 
 
 url = os.environ.get("DATABASE_URL") 
@@ -61,7 +61,11 @@ def index():
                 text=form.text.data,
             )
             db.close()
-            return redirect(url_for('main.thanks', filename=filename))
+            
+            query = ImageFile.get(ImageFile.filename == filename).filename
+            print(f"QUERY: {query}")
+            
+            return redirect(url_for('main.thanks', filename=query))
     return render_template('_second_bootstrap.html', form=form, files=files, ds=ds)
 
 @main.route('/all_files', methods=['GET','POST'])
@@ -75,8 +79,7 @@ def all_files():
 @main.route('/thanks/<filename>', methods=['GET', 'POST'])
 def thanks(filename):
     ds = ImageFile.select().where(ImageFile.filename==filename)
-    # ds = ds[-1]
-    return render_template('_thanks_for_submitting.html',filename=filename) #ds=ds 
+    return render_template('_thanks_for_submitting.html',filename=filename, ds=ds)
 
 @main.route('/decode', methods=['GET', 'POST'])
 def decode():
@@ -84,7 +87,7 @@ def decode():
         uploaded_file = request.files['file']
         filename = secure_filename(uploaded_file.filename)
         if filename != '':
-            uploaded_file.save(os.path.join(ENCODED, filename))
+            uploaded_file.save(os.path.join(DECODED, filename))
 
             # db logic goes here
             ImageFile.create(
@@ -94,23 +97,20 @@ def decode():
             )
             db.close()
 
-            #tempFile = ImageFile.select()[-1]
-            tempFile = ImageFile.select().where(ImageFile.filename==filename)
-            print(f"TEMPFILE {tempFile}, FILENAME: {filename}")
+            query = ImageFile.get(ImageFile.filename == filename).filename
 
             #message_to_show = my_decode_text(filename=filename)
-            message_to_show = my_decode_text_two(filename=filename)
+            message_to_show = my_decode_text_two(filename=query)
             print(f"Message = {message_to_show}")
-            return render_template('_decode.html', message_to_show=message_to_show, ds=tempFile, filename=filename)
+            return render_template('_decode.html', message_to_show=message_to_show, query=query)
     return redirect(url_for('main.index'))
 
 @main.route('/uploads/<filename>')
 def upload(filename):
     return send_from_directory(DOWNLOADS, "encoded_" + filename)
 
-
 @main.route('/get_encoded/<filename>')
-def get_encoded(filename):
+def get_decoded(filename):
     print(f"DOWNLOADS: {DOWNLOADS}")
     print(f"FILEAME: {filename}")
-    return send_from_directory(ENCODED, filename)
+    return send_from_directory(DECODED, filename)
