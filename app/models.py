@@ -18,9 +18,9 @@ db = connect(url)
 
 # Define your models here
 class ImageFile(Model):
-    user = TextField()
-    filename = TextField()
-    text = TextField()
+    user = TextField(null=True)
+    filename = TextField(null=True)
+    text = TextField(null=True)
     
     class Meta:
         database = db
