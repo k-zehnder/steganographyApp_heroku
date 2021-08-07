@@ -11,12 +11,17 @@ import numpy as np
 import datetime
 from playhouse.db_url import connect
 import os
+from dotenv import load_dotenv
 
 """Note: from playhouse.db_url import connect
 important import for using peewee in heroku"""
-
+load_dotenv()
 #db = connect(os.environ.get("DATABASE_URL")) # db = connect(os.environ.get('DATABASE_URL'))
+
 db = connect(os.environ.get('DATABASE_URL'))
+# uri = os.getenv("DATABASE_URL")  # or other relevant config var
+# if uri.startswith("postgres://"):
+#     uri = uri.replace("postgres://", "postgresql://", 1)
 
 # Define your models here
 class ImageFile(Model):

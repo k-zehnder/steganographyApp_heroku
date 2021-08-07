@@ -9,8 +9,8 @@ from PIL import Image
 from flask import current_app
 
 project_root = os.path.dirname(os.path.dirname(__file__))
-UPLOADS = os.path.join(project_root, "myapp", current_app.config['UPLOAD_PATH'])
-DOWNLOADS = os.path.join(project_root, "myapp", current_app.config['DOWNLOAD_PATH'])
+UPLOADS = os.path.join(project_root, "app", current_app.config['UPLOAD_PATH'])
+DOWNLOADS = os.path.join(project_root, "app", current_app.config['DOWNLOAD_PATH'])
 #print(f"TEST: {(UPLOADS, DOWNLOADS)}")
 
 def validate_image(stream):

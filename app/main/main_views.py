@@ -8,9 +8,9 @@ from os import environ, path
 from dotenv import load_dotenv
 from flask import Blueprint, render_template, make_response, redirect, url_for, current_app, request, send_from_directory, send_file, flash
 from werkzeug.utils import secure_filename
-from myapp.main.main_forms import UploadForm
-from myapp.models import db, ImageFile
-from myapp.utils import validate_image, my_decode_text, encode_text
+from app.main.main_forms import UploadForm
+from app.models import db, ImageFile
+from app.utils import validate_image, my_decode_text, encode_text
 
 #### temp
 from peewee import *
@@ -23,13 +23,14 @@ DOWNLOADS = os.path.join(project_root, current_app.config['DOWNLOAD_PATH'])
 print(f"TEST: {(UPLOADS, DOWNLOADS)}")
 
 load_dotenv()
-uri = os.getenv("DATABASE_URL")  # or other relevant config var
-if uri.startswith("postgres://"):
-    uri = uri.replace("postgres://", "postgresql://", 1)
-db = connect(uri)
+# url = os.getenv("DATABASE_URL")  # or other relevant config var
+# if url.startswith("postgres://"):
+#     url = url.replace("postgres://", "postgresql://", 1)
+url = os.getenv("DATABASE_URL") 
+db = connect(url)
 db.connect()
-#db.drop_tables([ImageFile])
-#db.create_tables([ImageFile])
+db.drop_tables([ImageFile])
+db.create_tables([ImageFile])
 
 @main.route('/', methods=['GET','POST'])
 def index():
