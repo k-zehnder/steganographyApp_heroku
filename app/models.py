@@ -15,13 +15,12 @@ from dotenv import load_dotenv
 
 """Note: from playhouse.db_url import connect
 important import for using peewee in heroku"""
-load_dotenv()
 #db = connect(os.environ.get("DATABASE_URL")) # db = connect(os.environ.get('DATABASE_URL'))
 
-db = connect(os.environ.get('DATABASE_URL'))
-# uri = os.getenv("DATABASE_URL")  # or other relevant config var
-# if uri.startswith("postgres://"):
-#     uri = uri.replace("postgres://", "postgresql://", 1)
+url = os.environ.get("DATABASE_URL") 
+if url.startswith("postgres://"):
+    url = url.replace("postgres://", "postgresql://", 1)
+db = connect(url)
 
 # Define your models here
 class ImageFile(Model):

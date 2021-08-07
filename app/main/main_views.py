@@ -22,15 +22,17 @@ UPLOADS = os.path.join(project_root, current_app.config['UPLOAD_PATH'])
 DOWNLOADS = os.path.join(project_root, current_app.config['DOWNLOAD_PATH'])
 print(f"TEST: {(UPLOADS, DOWNLOADS)}")
 
-load_dotenv()
 # url = os.getenv("DATABASE_URL")  # or other relevant config var
 # if url.startswith("postgres://"):
 #     url = url.replace("postgres://", "postgresql://", 1)
-url = os.getenv("DATABASE_URL") 
+url = os.environ.get("DATABASE_URL") 
+if url.startswith("postgres://"):
+    url = url.replace("postgres://", "postgresql://", 1)
 db = connect(url)
+print(f"DB URL = {url}")
 db.connect()
-# db.drop_tables([ImageFile])
-# db.create_tables([ImageFile])
+db.drop_tables([ImageFile])
+db.create_tables([ImageFile])
 
 @main.route('/', methods=['GET','POST'])
 def index():
@@ -69,7 +71,8 @@ def all_files():
 
 @main.route('/thanks', methods=['GET', 'POST'])
 def thanks():
-    ds = ImageFile.select()[-1]
+    ds = ImageFile.select()
+    ds = ds[-1]
     return render_template('_thanks_for_submitting.html', ds=ds)
 
 @main.route('/decode', methods=['GET', 'POST'])
