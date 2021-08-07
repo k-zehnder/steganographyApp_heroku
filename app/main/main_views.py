@@ -11,6 +11,11 @@ from werkzeug.utils import secure_filename
 from app.main.main_forms import UploadForm
 from app.models import db, ImageFile
 from app.utils import validate_image, my_decode_text, encode_text
+from PIL import Image
+import io
+import cv2
+import numpy as np
+import base64
 
 #### temp
 from peewee import *
@@ -29,8 +34,8 @@ if url.startswith("postgres://"):
 db = connect(url)
 print(f"DB URL = {url}")
 db.connect()
-# db.drop_tables([ImageFile])
-# db.create_tables([ImageFile])
+db.drop_tables([ImageFile])
+db.create_tables([ImageFile])
 
 @main.route('/', methods=['GET','POST'])
 def index():

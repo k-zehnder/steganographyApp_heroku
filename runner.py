@@ -1,6 +1,6 @@
 """Application Entry Point"""
-from app import create_app
-from app.models import ImageFile, db
+from app import create_app, db
+from app.models import ImageFile
 
 app = create_app()
 

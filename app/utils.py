@@ -93,12 +93,12 @@ def messageToBinary(message):
         raise TypeError("Input type is not supported\n")
 
 def my_decode_text(filename):
-    # write encoded image to disk
     if filename.startswith('encoded_'):
         encoded_filepath = filename
     else:
         encoded_filepath = 'encoded_' + filename
 
+    #TODO: actually needs to write then retreive when user uses decode tab
     image_with_message = cv2.imread(os.path.join(DOWNLOADS, encoded_filepath))
     print(f"Image with message filename = {encoded_filepath}")
 
@@ -112,3 +112,14 @@ def encode_text(filename, message):
     # write encoded image to disk
     encoded_filepath = 'encoded_' + filename
     cv2.imwrite(os.path.join(DOWNLOADS, encoded_filepath), processed_img)
+
+# def encode_text2(uploaded_file, message):
+#     img = cv2.imdecode(uploaded_file, cv2.IMREAD_COLOR);
+#     processed_img = hideData(img, message)
+#     return processed_img
+
+
+# def encode_text_2(img, message):
+#     img = cv2.imread(img)
+#     processed_img = hideData(img, message)
+#     return processed_img, message
