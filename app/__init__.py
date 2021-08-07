@@ -3,6 +3,14 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
+# url = os.environ.get("DATABASE_URL") 
+# if url.startswith("postgres://"):
+#     url = url.replace("postgres://", "postgresql://", 1)
+# db = connect(url)
+# print(f"DB URL = {url}")
+# db.connect()
+# db.drop_tables([ImageFile])
+# db.create_tables([ImageFile])
 
 def create_app():
     """Construct core Flask app."""

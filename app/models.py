@@ -1,9 +1,3 @@
-from flask_login import UserMixin
-from werkzeug.security import check_password_hash, generate_password_hash
-
-from flask_login import UserMixin
-from sqlalchemy import Column, Integer, String, ForeignKey
-
 # from myapp import db
 from peewee import *
 import pandas as pd
