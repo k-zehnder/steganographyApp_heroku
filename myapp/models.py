@@ -16,7 +16,7 @@ import os
 important import for using peewee in heroku"""
 
 #db = connect(os.environ.get("DATABASE_URL")) # db = connect(os.environ.get('DATABASE_URL'))
-db = connect(os.environ.get('TEST_DB'))
+db = connect(os.environ.get('DATABASE_URL'))
 
 # Define your models here
 class ImageFile(Model):
