@@ -13,8 +13,8 @@ from myapp.models import db, ImageFile
 from myapp.utils import validate_image, my_decode_text, encode_text
 
 #### temp
-from playhouse.db_url import connect # needed for peewee in heroku
 from peewee import *
+from playhouse.db_url import connect # needed for peewee in heroku
 
 main = Blueprint('main', __name__)
 project_root = os.path.dirname(os.path.dirname(__file__))
