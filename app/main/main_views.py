@@ -22,9 +22,7 @@ UPLOADS = os.path.join(project_root, current_app.config['UPLOAD_PATH'])
 DOWNLOADS = os.path.join(project_root, current_app.config['DOWNLOAD_PATH'])
 print(f"TEST: {(UPLOADS, DOWNLOADS)}")
 
-# url = os.getenv("DATABASE_URL")  # or other relevant config var
-# if url.startswith("postgres://"):
-#     url = url.replace("postgres://", "postgresql://", 1)
+
 url = os.environ.get("DATABASE_URL") 
 if url.startswith("postgres://"):
     url = url.replace("postgres://", "postgresql://", 1)
