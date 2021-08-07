@@ -29,8 +29,8 @@ load_dotenv()
 url = os.getenv("DATABASE_URL") 
 db = connect(url)
 db.connect()
-db.drop_tables([ImageFile])
-db.create_tables([ImageFile])
+# db.drop_tables([ImageFile])
+# db.create_tables([ImageFile])
 
 @main.route('/', methods=['GET','POST'])
 def index():
