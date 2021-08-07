@@ -20,7 +20,7 @@ print(f"DB URL = {url}")
 
 def create_tables():
     with db:
-        db.drop_tables([ImageFile])
+        #db.drop_tables([ImageFile])
         db.create_tables([ImageFile])
 
 def create_app():
