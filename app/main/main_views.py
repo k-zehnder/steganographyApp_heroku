@@ -36,7 +36,7 @@ db = connect(url)
 print(f"DB URL = {url}")
 db.connect()
 # db.drop_tables([ImageFile])
-# db.create_tables([ImageFile])
+db.create_tables([ImageFile])
 
 @main.route('/', methods=['GET','POST'])
 def index():
