@@ -16,12 +16,7 @@ url = os.environ.get("DATABASE_URL")
 if url.startswith("postgres://"):
     url = url.replace("postgres://", "postgresql://", 1)
 db = connect(url)
-print(f"DB URL = {url}")
-
-def create_tables():
-    with db:
-        #db.drop_tables([ImageFile])
-        db.create_tables([ImageFile])
+#print(f"DB URL = {url}")
 
 def create_app():
     """Construct core Flask app."""
@@ -43,5 +38,5 @@ def create_app():
 
         # Create database tables for our data models
         #db.create_all()
-        create_tables()
+        #create_tables()
         return app
