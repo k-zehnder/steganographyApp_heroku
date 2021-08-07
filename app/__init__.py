@@ -1,8 +1,23 @@
 """Initialize Flask app."""
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from peewee import PostgresqlDatabase
+from app import create_app, db
+from app.models import ImageFile
+import os
+from os import environ
+from peewee import *
+from playhouse.db_url import connect # needed for peewee in heroku
+
 
 db = SQLAlchemy()
+
+# database = PostgresqlDatabases(DATABASE)
+# url = os.environ.get("DATABASE_URL") 
+# if url.startswith("postgres://"):
+#     url = url.replace("postgres://", "postgresql://", 1)
+# db = connect(url)
+# print(f"DB URL = {url}")
 
 def create_app():
     """Construct core Flask app."""
