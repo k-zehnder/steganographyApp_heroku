@@ -105,12 +105,10 @@ def decode():
             return render_template('_decode.html', message_to_show=message_to_show, query=query)
     return redirect(url_for('main.index'))
 
-@main.route('/uploads/<filename>')
-def upload(filename):
+@main.route('/get_upload/<filename>')
+def get_upload(filename):
     return send_from_directory(DOWNLOADS, "encoded_" + filename)
 
 @main.route('/get_encoded/<filename>')
 def get_decoded(filename):
-    print(f"DOWNLOADS: {DOWNLOADS}")
-    print(f"FILEAME: {filename}")
     return send_from_directory(DECODED, filename)

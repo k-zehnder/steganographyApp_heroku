@@ -12,7 +12,15 @@ project_root = os.path.dirname(os.path.dirname(__file__))
 UPLOADS = os.path.join(project_root, "app", current_app.config['UPLOAD_PATH'])
 DOWNLOADS = os.path.join(project_root, "app", current_app.config['DOWNLOAD_PATH'])
 DECODED = os.path.join(project_root, "app", current_app.config['DECODED_PATH'])
-#print(f"TEST: {(UPLOADS, DOWNLOADS, DECODED)}")
+print(f"TEST: {(UPLOADS, DOWNLOADS, DECODED)}")
+
+# project_root = os.path.dirname(os.path.dirname(__file__))
+# UPLOADS = os.path.join(project_root, current_app.config['UPLOAD_PATH'])
+# DOWNLOADS = os.path.join(project_root, current_app.config['DOWNLOAD_PATH'])
+# DECODED = os.path.join(project_root, current_app.config['DECODED_PATH'])
+# print(f"TEST: {(UPLOADS, DOWNLOADS, DECODED)}")
+
+
 
 def validate_image(stream):
     header = stream.read(512)

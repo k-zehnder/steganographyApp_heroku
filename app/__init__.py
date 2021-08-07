@@ -38,5 +38,6 @@ def create_app():
 
         # Create database tables for our data models
         #db.create_all()
+        db.drop_tables([ImageFile])
         db.create_tables([ImageFile])
         return app

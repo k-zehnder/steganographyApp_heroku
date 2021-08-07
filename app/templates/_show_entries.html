@@ -4,7 +4,7 @@
 
 <br>
 {% for file in files %}
-  <img src="{{ url_for('main.upload', filename=file) }}" style="width: 64px">
+  <img src="{{ url_for('main.get_upload', filename=file) }}" style="width: 64px">
   <p>{{ file }}</p>
 {% endfor %}
 <hr>
@@ -15,7 +15,7 @@
   <p> user: {{ d.user }}</p>
   <p> filename: {{ d.filename }} </p>
   <p> text: {{ d.text }} </p>
-  <img src="{{ url_for('main.upload', filename=d.filename) }}" style="width: 64px">
+  <img src="{{ url_for('main.get_upload', filename=d.filename) }}" style="width: 64px">
   <hr>
 {% endfor %}
 
