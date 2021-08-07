@@ -20,5 +20,6 @@ app = create_app()
 #     return {'db': db, 'ImageFile': ImageFile}
 
 if __name__ == '__main__':
+    db.drop_tables([ImageFile])
     db.create_tables([ImageFile], safe=True)
     app.run(debug=True)
