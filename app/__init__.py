@@ -37,6 +37,6 @@ def create_app():
         app.register_blueprint(main_views.main)
 
         # Create database tables for our data models
-        #db.create_all()#
+        #db.create_all()
         #create_tables()
         return app
