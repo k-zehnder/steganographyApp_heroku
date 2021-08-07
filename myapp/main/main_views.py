@@ -25,7 +25,7 @@ print(f"TEST: {(UPLOADS, DOWNLOADS)}")
 load_dotenv()
 db = connect(os.environ.get('DATABASE_URL'))
 db.connect()
-db.drop_tables([ImageFile])
+#db.drop_tables([ImageFile])
 db.create_tables([ImageFile])
 
 @main.route('/', methods=['GET','POST'])
