@@ -35,8 +35,8 @@ if url.startswith("postgres://"):
 db = connect(url)
 print(f"DB URL = {url}")
 db.connect()
-db.drop_tables([ImageFile])
-db.create_tables([ImageFile])
+# db.drop_tables([ImageFile])
+# db.create_tables([ImageFile])
 
 @main.route('/', methods=['GET','POST'])
 def index():
@@ -64,7 +64,7 @@ def index():
             
             query = ImageFile.get(ImageFile.filename == filename).filename
             print(f"QUERY: {query}")
-            
+
             return redirect(url_for('main.thanks', filename=query))
     return render_template('_second_bootstrap.html', form=form, files=files, ds=ds)
 
