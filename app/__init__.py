@@ -2,7 +2,6 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from peewee import PostgresqlDatabase
-from app import create_app, db
 from app.models import ImageFile
 import os
 from os import environ
@@ -10,14 +9,19 @@ from peewee import *
 from playhouse.db_url import connect # needed for peewee in heroku
 
 
-db = SQLAlchemy()
+# db = SQLAlchemy()
 
 # database = PostgresqlDatabases(DATABASE)
-# url = os.environ.get("DATABASE_URL") 
-# if url.startswith("postgres://"):
-#     url = url.replace("postgres://", "postgresql://", 1)
-# db = connect(url)
-# print(f"DB URL = {url}")
+url = os.environ.get("DATABASE_URL") 
+if url.startswith("postgres://"):
+    url = url.replace("postgres://", "postgresql://", 1)
+db = connect(url)
+print(f"DB URL = {url}")
+
+def create_tables():
+    with db:
+        db.drop_tables([ImageFile])
+        db.create_tables([ImageFile])
 
 def create_app():
     """Construct core Flask app."""
@@ -25,7 +29,7 @@ def create_app():
     app.config.from_object('config.Config')
 
     # Initialize plugins
-    db.init_app(app)
+    #db.init_app(app)
 
     with app.app_context():
         # Import parts of our flask_assets_tutorial
@@ -39,4 +43,5 @@ def create_app():
 
         # Create database tables for our data models
         #db.create_all()
+        create_tables()
         return app
